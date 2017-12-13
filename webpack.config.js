@@ -1,5 +1,6 @@
 var path = require("path");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var PATHS = {
 	JS: path.resolve(__dirname, "src"),
@@ -19,16 +20,21 @@ var config = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: path.join(PATHS.PUBLIC, "index.html")
-		})
+		}),
+		new ExtractTextPlugin("style.bundle.css")
 	],
 	module: {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				use: [
-					"babel-loader",
-				]
+				use: ["babel-loader"]
+			},
+			{
+				test: /\.css$/,
+				loader: ExtractTextPlugin.extract({
+					use: "css-loader"
+				})
 			}
 		]
 	},
