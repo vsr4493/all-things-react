@@ -35,11 +35,19 @@ var config = {
 				loader: ExtractTextPlugin.extract({
 					use: "css-loader"
 				})
+			},
+			{
+				test: /\.(jpg|png|jpeg|svg|gif)$/,
+				loader: "file-loader"
 			}
 		]
 	},
 	resolve: {
-		extensions: [".js", ".jsx"]
+		extensions: [".js", ".jsx"],
+		alias: {
+			"@images": path.join(PATHS.PUBLIC, "assets", "images")
+		},
+		modules: [path.resolve(__dirname, "src"), "node_modules"]
 	}
 };
 
